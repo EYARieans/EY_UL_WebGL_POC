@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/L1-Scientific_lab.unity
+    guid: b0fb095190c1c3c4f9e2d7a5939b0dca
+  - enabled: 0
+    path: Assets/Scenes/L2-BBRequirement.unity
+    guid: 065e222eb9f0de04fa9fd2c9ffa756db
+  - enabled: 0
+    path: Assets/Scenes/L3-Procurment.unity
+    guid: 974b0c608f3d7c744a8288d5c00c71aa
+  - enabled: 0
+    path: Assets/Scenes/L4-Pilot.unity
+    guid: 1ee94b3feb9fc574db3c028015179f00
+  - enabled: 0
+    path: Assets/Scenes/L21-BBRequirement 1.unity
+    guid: 78456dee9c1113344932e1bd97839794
+  - enabled: 1
+    path: Assets/Scenes/Level 1.2.unity
+    guid: 909e3fb6455d13f42b679f45f70eadc2
+  - enabled: 1
+    path: Assets/Scenes/Level 2.2.unity
+    guid: 0847b73be56f42647a6539907eb21479
+  m_configObjects: {}
