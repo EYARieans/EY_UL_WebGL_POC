@@ -14,6 +14,10 @@ TagManager:
   - flag
   - trigger4
   - future_btn
+  - Notebook
+  - past_btn
+  - future_btn_1
+  - triggerM
   layers:
   - Default
   - TransparentFX

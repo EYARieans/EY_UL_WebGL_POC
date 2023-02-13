@@ -11,12 +11,17 @@ public class CameraLook : MonoBehaviour
     public Transform pos3;//for 3rd room
     public GameObject Canvas_level2;//for 3rd room
     public GameObject Canvas_level3;//for 3rd room
+    public GameObject Canvas_level4;
     public GameObject Ripples;//for 3rd room
+    public GameObject Ripples_2;//for 4th level
     public GameObject Grapple_Gun;//for 3rd room
+    public GameObject Grapple_Gun_2;//for 4th room
     public Transform pos4;//for 3rd room
     public Camera cam;
-    
-   //for Camera Rotation
+    public Transform pos5;
+    public Transform pos6;
+
+    //for Camera Rotation
     public float sensX;
     public float sensY;
     float xRotation;
@@ -73,12 +78,27 @@ public class CameraLook : MonoBehaviour
 
     IEnumerator Pos_change_level3() //waiting for grapple gun to end its animation,grapple gun clicks : 1st canvas off ,2nd canvas on ,3rd camera positon change,4th ripples should be off
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.8f);
         Canvas_level2.SetActive(false);
         Canvas_level3.SetActive(true);
         cam.transform.position = pos3.transform.position;
         Ripples.SetActive(false);
         Grapple_Gun.SetActive(false);
+    }
+
+    public void Level4()
+    {
+        StartCoroutine(Pos_change_level4());
+        //SceneManager.LoadScene(1);
+    }
+    IEnumerator Pos_change_level4() //effect frmom 3 to 4th
+    {
+        yield return new WaitForSeconds(1.8f);
+        Canvas_level3.SetActive(false);
+        Canvas_level4.SetActive(true);
+        cam.transform.position = pos5.transform.position;
+        Ripples_2.SetActive(false);
+        Grapple_Gun_2.SetActive(false);
     }
 
     public void Level3()
@@ -93,6 +113,14 @@ public class CameraLook : MonoBehaviour
     public void Pos_change_back_L3()
     {
         cam.transform.position = pos3.transform.position;
+    }
+    public void Pos_change_L4()
+    {
+        cam.transform.position = pos6.transform.position;
+    }
+    public void Pos_change_back_L4()
+    {
+        cam.transform.position = pos5.transform.position;
     }
 
 

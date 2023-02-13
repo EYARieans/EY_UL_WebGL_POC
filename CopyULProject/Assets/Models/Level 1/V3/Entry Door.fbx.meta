@@ -15,6 +15,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Mat_Door_Main
     second: {fileID: 2100000, guid: 070318c317e0d534cbb75ac77ddce8fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Text
+    second: {fileID: 2100000, guid: c4dc00b9123651747a7b9ccc2ffab720, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
