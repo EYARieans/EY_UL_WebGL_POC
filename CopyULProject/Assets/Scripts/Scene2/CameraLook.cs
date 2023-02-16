@@ -51,8 +51,8 @@ public class CameraLook : MonoBehaviour
 
             yRotation += mouseX;
             xRotation -= mouseY;
-            yRotation = Mathf.Clamp(yRotation, -180f, 180f);
-            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            yRotation = Mathf.Clamp(yRotation, -90f, 100f);
+            xRotation = Mathf.Clamp(xRotation, -60f, 60f);
            
             //rotate cam and orientation
             transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
@@ -122,6 +122,6 @@ public class CameraLook : MonoBehaviour
     {
         cam.transform.position = pos5.transform.position;
     }
-
+    
 
 }
