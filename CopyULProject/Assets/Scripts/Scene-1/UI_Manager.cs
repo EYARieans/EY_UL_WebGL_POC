@@ -1,18 +1,12 @@
 using System.Collections;
-using System.IO;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using UnityEngine.EventSystems;
-using UnityEngine.Events;
 using UnityEngine.Video;
 
 public class UI_Manager : MonoBehaviour
 {
-     
-     public GameObject obj_tt;
-     public GameObject btn_tt;
+    public GameObject obj_tt;
+    public GameObject btn_tt;
     public GameObject btn_tt_lock;
     public GameObject btn_gg_lock;
     public GameObject obj_gg;
@@ -34,22 +28,16 @@ public class UI_Manager : MonoBehaviour
     public GameObject guided_arrow_gg;
     public GameObject guided_arrow_tt;
 
-
-
-    //public Transform liftpos;
-
-
-
     // Start is called before the first frame update
     void Start()
     {
         //aud = GetComponent<AudioSource>();
         //gg_target = GetComponent<Animation>();
         //videoUrl = "C:/Users/KV763EQ/unity porjects/Copy_UL_Project/UL_Project_copy/Assets/StreamingAssets/teleportation lift up.mp4";
-       // Video.url = "file:///" + videoUrl;
-       Video.url = System.IO.Path.Combine(Application.streamingAssetsPath, "Grapple_gun_teleport_effect_scene_01_to_02_v07.mp4");
+        // Video.url = "file:///" + videoUrl;
+        Video.url = System.IO.Path.Combine(Application.streamingAssetsPath, "Grapple_gun_teleport_effect_scene_01_to_02_v07.mp4");
         Video1.url = System.IO.Path.Combine(Application.streamingAssetsPath, "Splash_screen");
-       
+
 
 
     }
@@ -63,26 +51,26 @@ public class UI_Manager : MonoBehaviour
             panel1.SetActive(false);
             audi1.Play();
         }
-            //obj_gg1.transform.rotation.y= FPS.transform.rotation.y;
+        //obj_gg1.transform.rotation.y= FPS.transform.rotation.y;
 
-            //audi1.PlayDelayed(10f);
-            if (Input.GetMouseButtonDown(0)&& !EventSystem.current.IsPointerOverGameObject())//Using Raycast to click on the object i.e teleportation lift
+        //audi1.PlayDelayed(10f);
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())//Using Raycast to click on the object i.e teleportation lift
         {
             RaycastHit hit;
-           
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-           
-            if(Physics.Raycast(ray, out hit,100.0f))
+
+            if (Physics.Raycast(ray, out hit, 100.0f))
             {
                 if (hit.collider.tag == "tt")// moment when we take tt from mad scientist
                 {
                     guided_arrow_tt.SetActive(false);
-                obj_tt.SetActive(false);
-                btn_tt_lock.SetActive(false);
-                btn_tt.SetActive(true);
+                    obj_tt.SetActive(false);
+                    btn_tt_lock.SetActive(false);
+                    btn_tt.SetActive(true);
                     aud_obj.Play();
                 }
-                else if(hit.collider.tag == "gg")//moment when we take gg from Mad scientist
+                else if (hit.collider.tag == "gg")//moment when we take gg from Mad scientist
                 {
                     guided_arrow_gg.SetActive(false);
                     //  Event.Invoke();
@@ -91,12 +79,12 @@ public class UI_Manager : MonoBehaviour
                     btn_gg.SetActive(true);
                     takeover_txt.SetActive(false);
                     aud_obj.Play();
-                    
+
                 }
             }
-            
+
         }
-        if(obj_tt.active == false && obj_gg.active == false && guided_arrow.active==true)
+        if (obj_tt.active == false && obj_gg.active == false && guided_arrow.active == true)
         {
             StartCoroutine(prompt_prompt());
 
@@ -125,12 +113,12 @@ public class UI_Manager : MonoBehaviour
     void OnEnable()
     {
         //EventManager.Ontrigger += play_clip; subscribe to particular event
-        
+
     }
     void OnDisable()
     {
-       // EventManager.Ontrigger -= play_clip;unsubscribe to particular event for that we specifically use Enable and OnDisable
-       
+        // EventManager.Ontrigger -= play_clip;unsubscribe to particular event for that we specifically use Enable and OnDisable
+
     }
     /*public void Transform_position()
     {
@@ -142,7 +130,7 @@ public class UI_Manager : MonoBehaviour
     {
         btn_enterance.SetActive(true);
     }
-   public void close()
+    public void close()
     {
         Close_btn.SetActive(false);
         Invoke("Button", audi.clip.length);
