@@ -23,9 +23,9 @@ public class Ui : MonoBehaviour
     public GameObject panel_for_tt;
     public GameObject replay_btn;
     public GameObject tt_object;
-    public GameObject tt_object_1;
+   
     public GameObject panel_prompt;// after tt effect q's prompt for gg use
-    public GameObject sphere;
+    
     public GameObject characters;
     public GameObject spy_off_prompt;
     public GameObject tt_btn;//after the audio stop then Q's prompt ,tt btn,tt prompt should appear in scene 2
@@ -36,7 +36,6 @@ public class Ui : MonoBehaviour
     public Animator Spy_toggle_on_anim=null;
     public GameObject panel;
     public VideoPlayer video_1;//video from 2 to 3
-    public GameObject arrow;
     public PlayableDirector director;
     public GameObject Director;
     public GameObject screen_prompt;
@@ -45,8 +44,8 @@ public class Ui : MonoBehaviour
     public GameObject calendar_nov;
     public GameObject calendar_march;
     public GameObject spy_normal;
-   
 
+   // public Material skymat;
 
 
 
@@ -54,12 +53,13 @@ public class Ui : MonoBehaviour
 
     void Start()
     {
-        video.url = System.IO.Path.Combine(Application.streamingAssetsPath, "New_Time_Travel_Effect.mp4");
+        video.url = System.IO.Path.Combine(Application.streamingAssetsPath, "Time_Travel_01.mp4");
         video_1.url= System.IO.Path.Combine(Application.streamingAssetsPath, "Grapple_gun_teleport_effect_scene_02_to_03_v07.mp4");
         //VideoPlayer.loopPointReached += Reload;
         director.played += Director_Played;
         director.stopped += Director_Stopped;
         StartCoroutine(Screen_prompt());
+       // RenderSettings.skybox = skymat;
        
 
 
@@ -80,11 +80,9 @@ public class Ui : MonoBehaviour
                     future_btn.Play("ButtonFuture", 0, 0.0f);
                     panel_for_tt.SetActive(true);
                     video.Play();
-                    // sphere.SetActive(true);
                     Canvas_1.SetActive(false);
-                    arrow.SetActive(false);
+                   
                     tt_object.SetActive(false);
-                    tt_object_1.SetActive(false);
                     characters.SetActive(false);
                     Director.SetActive(false);
                     

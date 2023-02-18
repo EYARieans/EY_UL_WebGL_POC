@@ -14,6 +14,7 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         
                TooltipSystem.Show(content);
+        
           
         
     }
@@ -21,5 +22,6 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         
         TooltipSystem.Hide();
+       
     }
 }

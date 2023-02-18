@@ -12,6 +12,7 @@ public class UI_Manager_5 : MonoBehaviour
     public GameObject click_promt;//tthe click on It lady notebook prompt
     [SerializeField] private Animator dairy_mode = null;
     [SerializeField] private Animator madq = null;
+    public GameObject dairy_mode_normal;
     public GameObject Q_prompt;
     public PlayableDirector director;
     public PlayableDirector director1;
@@ -21,6 +22,8 @@ public class UI_Manager_5 : MonoBehaviour
     [SerializeField] private Animator Spy_toggle_off_anim = null;
     public GameObject prompt;
     public GameObject close_btn;
+    public AudioSource aud_obj;
+    public GameObject click_here_prompt;
 
     // Start is called before the first frame update
     void Start()
@@ -47,16 +50,15 @@ public class UI_Manager_5 : MonoBehaviour
                     notebook.SetActive(false);
                     guided_arrow.SetActive(false);
                     click_promt.SetActive(false);
+                    dairy_mode_normal.SetActive(false);
+                    dairy_mode.gameObject.SetActive(true);
                     dairy_mode.Play("Diary", 0, 0.0f);
                     smoke.Play("Smokewave", 0, 0.0f);
-                    
+                    aud_obj.Play();
+                    click_here_prompt.SetActive(false);
 
                 }
-                else if (hit.collider.tag == "past_btn")
-                {
-                   
-
-                }
+                
 
             }
 
@@ -86,6 +88,7 @@ public class UI_Manager_5 : MonoBehaviour
         madq.gameObject.SetActive(true);
         madq.Play("Q", 0, 0.0f);
         Q_prompt.SetActive(true);
+       
         Invoke("q_prompt_audi", aud_q.clip.length);
         //replay_btn.SetActive(true);
     }
@@ -97,7 +100,7 @@ public class UI_Manager_5 : MonoBehaviour
     private void Director_Stopped1(PlayableDirector obj)
     {
         prompt.SetActive(true);
-        close_btn.SetActive(true);
+       // close_btn.SetActive(true);
 
         //replay_btn.SetActive(true);
     }

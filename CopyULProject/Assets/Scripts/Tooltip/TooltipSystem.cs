@@ -10,6 +10,7 @@ public class TooltipSystem : MonoBehaviour
     public Text My_Text;
     public GameObject Panel;
     public RectTransform rectTransfrom;
+     
 
     // Start is called before the first frame update
     public void Awake()
@@ -53,12 +54,12 @@ public class TooltipSystem : MonoBehaviour
     }
     private void Update()
     {
-       Vector3 position = Input.mousePosition  ;
-       // float pivotX = position.x / Screen.width;
-        //float pivotY = position.y / Screen.height;
+     Vector3 position = Input.mousePosition  ;
+        float pivotX = position.x / Screen.width;
+        float pivotY = position.y / Screen.height;
         //float pivotX = x / Screen.width;
         //float pivotY = y / Screen.height;
-        //rectTransfrom.pivot = new Vector2(pivotX, pivotY);
-        transform.position = position;
+        rectTransfrom.pivot = new Vector2(pivotX, pivotY);
+        transform.position = position;  
     }
 }

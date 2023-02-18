@@ -13,7 +13,6 @@ public class UI_Manager_3 : MonoBehaviour
     public GameObject spy_btn_normal;
     public Animator spy_anim = null;//animation of spy on btn
     [SerializeField] private Animator future_btn = null;
-    public GameObject sphere;
     public GameObject Panel_for_tt;//
     public VideoPlayer video;//When Video gets over of 360 degree
     public GameObject Canvas;
@@ -43,11 +42,12 @@ public class UI_Manager_3 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        video.url = System.IO.Path.Combine(Application.streamingAssetsPath, "New_Time_Travel_Effect.mp4");
+        video.url = System.IO.Path.Combine(Application.streamingAssetsPath, "Time_Travel_02.mp4");
         video_1.url= System.IO.Path.Combine(Application.streamingAssetsPath, "Grapple_gun_teleport_effect_scene_03_to_04_v07.mp4");
         director.played += Director_Played;
         director.stopped += Director_Stopped;
-        
+      video.loopPointReached += OnMovieFinished;
+
     }
 
     // Update is called once per frame
@@ -70,7 +70,7 @@ public class UI_Manager_3 : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 100.0f))
             {
-                if (hit.collider.tag == "future_btn_1")//when future btn is clicked
+                if (hit.collider.tag == "future_btn")//when future btn is clicked
                 {
                     future_btn.Play("ButtonFuture", 0, 0.0f);
                     //sphere.SetActive(true);
@@ -95,14 +95,14 @@ public class UI_Manager_3 : MonoBehaviour
                 }
 
             }
-         /*   if ((video.frame) > 0 && (video.isPlaying == false)) //time traveller video when get over
+          /*if ((video.frame) > 0 && (video.isPlaying == false)) //time traveller video when get over
             {
                 Canvas.SetActive(true);
+                Panel_for_tt.SetActive(false);
                 tt_anim_btn.gameObject.SetActive(false);
                 tt_btn_selected.SetActive(false);
                 tt_btn.SetActive(true);
-                //sphere.SetActive(false);
-                Panel_for_tt.SetActive(false);
+               
                 // video.gameObject.SetActive(false);
                
                 screen_prompt.SetActive(true);
@@ -125,35 +125,37 @@ public class UI_Manager_3 : MonoBehaviour
         }
         
     }
-
-
-    public IEnumerator WaitForVideoEnd()
+    public void OnMovieFinished(VideoPlayer player)
     {
         
-        if ((video.frame) > 0 && (video.isPlaying == false))
-        {
-            yield return new WaitForEndOfFrame();
-            Debug.Log("della");
-            Event_take_place();
-        }
-        
-    }
-    void Event_take_place()
-    {
         Canvas.SetActive(true);
+        player.gameObject.SetActive(false);
+        Panel_for_tt.SetActive(false);
         tt_anim_btn.gameObject.SetActive(false);
         tt_btn_selected.SetActive(false);
         tt_btn.SetActive(true);
-        //sphere.SetActive(false);
-        Panel_for_tt.SetActive(false);
-        Debug.Log("della done");
+
         // video.gameObject.SetActive(false);
 
         screen_prompt.SetActive(true);
         spy_anim.gameObject.SetActive(true);
         spy_anim.Play("spy_toogle", 0, 0.0f);
         spy_btn_normal.SetActive(false);
+
+        // q_prompt_1.SetActive(true);
+        // q_anim.Play("Q", 0, 0.0f);
+        // gg_anim.gameObject.SetActive(true);
+        // gg_anim.Play("Button_gg_Icon", 0, 0.0f);
+        // sphere.SetActive(false);
+        // tt_btn.SetActive(true);
+        // video.gameObject.SetActive(false);
+
     }
+
+
+
+
+
     public void qprompt_appear()//q's prompt for using tt
     {
         q_prompt.SetActive(false);
@@ -190,7 +192,7 @@ public class UI_Manager_3 : MonoBehaviour
     private void Director_Stopped(PlayableDirector obj)
     {
         
-      replay_btn.SetActive(true);
+        replay_btn.SetActive(true);
         q_prompt.SetActive(true);
         q_anim.Play("Q", 0, 0.0f);
         tt_btn.SetActive(false);

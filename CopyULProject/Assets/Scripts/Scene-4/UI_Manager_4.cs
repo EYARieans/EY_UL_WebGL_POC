@@ -11,22 +11,19 @@ using UnityEngine.Playables;
 public class UI_Manager_4 : MonoBehaviour
 {
     public VideoPlayer video;//intial video
-    public VideoPlayer video_teams;//intial video
-
-    public GameObject panel;//first video on plane
-    public GameObject panel1;//2nd video on  this plane
     public GameObject Q_prompt;
     public GameObject replay_btn;
     public AudioSource aud_q;
     public GameObject arrow;
     public GameObject notebook;
+    public GameObject notebook_duplicate;
     public GameObject notebook_btn;
     public GameObject notebook_btn_lock;
     public GameObject spy_Btn;
     public GameObject smoke;
     [SerializeField] private Animator spy_mode = null;
     [SerializeField] private Animator past_btn=null;//to press the animation
-    public GameObject sphere;//effect to show for tt in spheere
+    public GameObject panel_for_tt;//effect to show for tt in spheere
     public GameObject timetravaller;
     public GameObject canvas_4;
     public VideoPlayer video_2;
@@ -38,49 +35,25 @@ public class UI_Manager_4 : MonoBehaviour
     public GameObject Q_prompt1;
     [SerializeField] private Animator btn_qanim = null;
     public GameObject panel_effect;
-
+    public GameObject click_here_prompt;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        video_2.url = System.IO.Path.Combine(Application.streamingAssetsPath, "360_video_Teleport_effect.mp4");
-        video.url= System.IO.Path.Combine(Application.streamingAssetsPath, "Teams_Call_01_v01.mp4");
-        video_teams.url= System.IO.Path.Combine(Application.streamingAssetsPath, "Teams_Call_02_v01.mp4");
+        video_2.url = System.IO.Path.Combine(Application.streamingAssetsPath, "Time_Travel_03.mp4");
+        video.url= System.IO.Path.Combine(Application.streamingAssetsPath, "Teams_calls_videos_merged.mp4");
+     
         //director = GetComponent<PlayableDirector>();
         director.played += Director_Played;
             director.stopped += Director_Stopped;
+        video_2.loopPointReached += OnMovieFinished;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ((video.frame) > 0 && (video.isPlaying == false))
-        {
-            //panel.SetActive(false);
-            // panel1.SetActive(true);
-            //video1.Play();
-           
-            
-        }
        
-       /* if ((video_2.frame) > 0 && (video_2.isPlaying == false))
-        {
-            video_2.gameObject.SetActive(false);
-            panel_effect.SetActive(true);
-        }*/
-      /*  if (aud_q.time != 0 && !aud_q.isPlaying)//for 1st prompt of q
-        {
-            
-           
-
-        }*/
-       /* if (aud_q1.time != 0 && !aud_q1.isPlaying)//for 2nd promt of q
-        {
-            
-            
-
-        }*/
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())//Using Raycast to click on the object i.e teleportation lift
         {
             RaycastHit hit;
@@ -93,6 +66,7 @@ public class UI_Manager_4 : MonoBehaviour
                     notebook.SetActive(false);
                     notebook_btn_lock.SetActive(false);
                     notebook_btn.SetActive(true);
+                    click_here_prompt.SetActive(false);
                     arrow.SetActive(false);
                     spy_Btn.SetActive(false);
                     spyoff_prompt.SetActive(true);
@@ -105,7 +79,9 @@ public class UI_Manager_4 : MonoBehaviour
                 else if (hit.collider.tag == "past_btn")
                 {
                     past_btn.Play("ButtonPast", 0, 0.0f);
-                    sphere.SetActive(true);
+                    panel_for_tt.SetActive(true);
+                    video_2.gameObject.SetActive(true);
+                    video_2.Play();
                     timetravaller.SetActive(false);
                     canvas_4.SetActive(false);
                   //  Level();
@@ -117,14 +93,24 @@ public class UI_Manager_4 : MonoBehaviour
             }
 
         }
-       if ((video_2.frame) > 0 && (video_2.isPlaying == false))
+      /* if ((video_2.frame) > 0 && (video_2.isPlaying == false))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            panel_for_tt.SetActive(false);
             video_2.gameObject.SetActive(false);
-        }
+        }*/
 
     }
-    public void Screen_display_timer()
+    public void OnMovieFinished(VideoPlayer player)
+    {
+        player.gameObject.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        panel_for_tt.SetActive(false);
+        
+
+
+    }
+        public void Screen_display_timer()
     {
         StartCoroutine(Screen_prompt());
     }
@@ -161,6 +147,9 @@ public class UI_Manager_4 : MonoBehaviour
         arrow.SetActive(true);
         btn_qanim.Play("Q", 0, 0.0f);
         Invoke("q_prompt", aud_q.clip.length);
+        notebook_duplicate.SetActive(false);
+        notebook.SetActive(true);
+        click_here_prompt.SetActive(true);
 
     }
     private void Director_Played(PlayableDirector obj)

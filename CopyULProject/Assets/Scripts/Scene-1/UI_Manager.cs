@@ -33,9 +33,9 @@ public class UI_Manager : MonoBehaviour
     public AudioSource aud_obj;//sfx for gg and tt
     public GameObject guided_arrow_gg;
     public GameObject guided_arrow_tt;
-
-
-
+    public GameObject proceed_btn;//at starting when avatar get select
+    public GameObject avatar_panel;//to activate avatar selection panel
+    public GameObject bg_avatar_panel;//to activate avatar selection panel
     //public Transform liftpos;
 
 
@@ -48,8 +48,8 @@ public class UI_Manager : MonoBehaviour
         //videoUrl = "C:/Users/KV763EQ/unity porjects/Copy_UL_Project/UL_Project_copy/Assets/StreamingAssets/teleportation lift up.mp4";
        // Video.url = "file:///" + videoUrl;
        Video.url = System.IO.Path.Combine(Application.streamingAssetsPath, "Grapple_gun_teleport_effect_scene_01_to_02_v07.mp4");
-        Video1.url = System.IO.Path.Combine(Application.streamingAssetsPath, "Splash_screen");
-       
+        Video1.url = System.IO.Path.Combine(Application.streamingAssetsPath, "Splash_screen.mp4");
+        
 
 
     }
@@ -59,15 +59,18 @@ public class UI_Manager : MonoBehaviour
     {
         if ((Video1.frame) > 0 && (Video1.isPlaying == false)) //splash screee video
         {
+            avatar_panel.SetActive(true);
+            bg_avatar_panel.SetActive(true);
             pane2.SetActive(true);
             panel1.SetActive(false);
             audi1.Play();
+
         }
             //obj_gg1.transform.rotation.y= FPS.transform.rotation.y;
 
             //audi1.PlayDelayed(10f);
             if (Input.GetMouseButtonDown(0)&& !EventSystem.current.IsPointerOverGameObject())//Using Raycast to click on the object i.e teleportation lift
-        {
+            {
             RaycastHit hit;
            
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -91,25 +94,32 @@ public class UI_Manager : MonoBehaviour
                     btn_gg.SetActive(true);
                     takeover_txt.SetActive(false);
                     aud_obj.Play();
-                    
+                    if (takeover_txt.activeSelf == false)
+                    {
+                        StartCoroutine(prompt_prompt());
+                    }
+
                 }
             }
             
         }
-        if(obj_tt.active == false && obj_gg.active == false && guided_arrow.active==true)
+        if(obj_tt.active == false && obj_gg.active == false )
         {
-            StartCoroutine(prompt_prompt());
-
+            guided_arrow.SetActive(true);
         }
+        
+        
 
 
     }
     IEnumerator prompt_prompt() //waiting for grapple gun to end its animation
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         highlight_prompt.SetActive(true);
 
     }
+
+
 
     IEnumerator Video_Play() //waiting for grapple gun to end its animation
     {
@@ -152,6 +162,13 @@ public class UI_Manager : MonoBehaviour
         Video1.Play();
 
     }
-
-
+    IEnumerator Avatar_selection() //porceed btn after sometime 
+    {
+        yield return new WaitForSeconds(1.2f);
+        proceed_btn.SetActive(true);
+    }
+    public void proceed_button()
+    {
+        StartCoroutine(Avatar_selection());
+    }
 }
