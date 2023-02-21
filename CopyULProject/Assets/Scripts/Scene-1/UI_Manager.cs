@@ -35,11 +35,8 @@ public class UI_Manager : MonoBehaviour
         //gg_target = GetComponent<Animation>();
         //videoUrl = "C:/Users/KV763EQ/unity porjects/Copy_UL_Project/UL_Project_copy/Assets/StreamingAssets/teleportation lift up.mp4";
         // Video.url = "file:///" + videoUrl;
-        Video.url = System.IO.Path.Combine(Application.streamingAssetsPath, "Grapple_gun_teleport_effect_scene_01_to_02_v07.mp4");
-        Video1.url = System.IO.Path.Combine(Application.streamingAssetsPath, "Splash_screen");
-
-
-
+        //Video.url = $"{Application.streamingAssetsPath}/Grapple_gun_teleport_effect_scene_01_to_02_v07.mp4";
+        Video1.url = $"{Application.streamingAssetsPath}/Splash_screen.mp4";
     }
 
     // Update is called once per frame
@@ -135,10 +132,10 @@ public class UI_Manager : MonoBehaviour
         Close_btn.SetActive(false);
         Invoke("Button", audi.clip.length);
     }
+
     public void Spalsh_video()
     {
         Video1.Play();
-
     }
 
 
