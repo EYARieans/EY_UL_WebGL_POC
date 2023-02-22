@@ -8,8 +8,10 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 {
     public string content;
     
-    
+
+
     // Start is called before the first frame update
+    
     public void OnPointerEnter(PointerEventData eventData)
     {
         

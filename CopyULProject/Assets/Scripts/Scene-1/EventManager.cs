@@ -24,7 +24,20 @@ public class EventManager : MonoBehaviour
     [SerializeField] private Animator gg_btn = null;
     public GameObject guided_arrow_gg;
     public GameObject guided_arrow_tt;
+<<<<<<< Updated upstream
+=======
+    public GameObject trigger4;//after timeline finished it should not play again thats why we will disable the trigger
+    public AudioSource aud1;//audio when user enter the collider of trigger near q
+    public AudioSource aud2;//audio for machine and console
+    public GameObject stand_here_prompt;
 
+    public GameObject tt_tag;//for changing tag in a runtime 
+    public GameObject gg_tag;//for changing tag in a runtime 
+    public string newtag;//for changing tag in a runtime 
+    public string newtag1;//for changing tag in a runtime 
+>>>>>>> Stashed changes
+
+    public GameObject door_collider;
 
 
 
@@ -32,6 +45,27 @@ public class EventManager : MonoBehaviour
     //public delegate void TriggerAction();
     //public static event TriggerAction Ontrigger;
 
+<<<<<<< Updated upstream
+=======
+    }
+    private void Director_Stopped(PlayableDirector obj)
+    {
+
+        guided_arrow_gg.SetActive(true);
+        guided_arrow_tt.SetActive(true);
+        //arrow.SetActive(true);
+        takeover_txt.SetActive(true);
+        trigger4.SetActive(false);
+        Edit_tt();
+        Edit_gg();
+        door_collider.SetActive(false);
+    }
+    private void Director_Played(PlayableDirector obj)
+    {
+        //  btn.SetActive(false);
+    }
+    
+>>>>>>> Stashed changes
 
     private void OnTriggerEnter(Collider other)
 

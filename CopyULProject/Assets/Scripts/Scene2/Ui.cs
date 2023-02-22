@@ -213,7 +213,7 @@ public class Ui : MonoBehaviour
     }*/
     IEnumerator Video_Play_1() //waiting for grapple gun to end its animation from 2 to 3
     {
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.54f);
         panel.SetActive(true);
         video_1.Play();
     }

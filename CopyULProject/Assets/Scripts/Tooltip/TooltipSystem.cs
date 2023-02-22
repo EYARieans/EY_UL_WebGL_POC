@@ -10,6 +10,11 @@ public class TooltipSystem : MonoBehaviour
     public Text My_Text;
     public GameObject Panel;
     public RectTransform rectTransfrom;
+<<<<<<< Updated upstream
+=======
+    
+     
+>>>>>>> Stashed changes
 
     // Start is called before the first frame update
     public void Awake()
@@ -51,8 +56,9 @@ public class TooltipSystem : MonoBehaviour
            // header.text = content;
         }
     }
-    private void Update()
+   private void Update()
     {
+<<<<<<< Updated upstream
        Vector3 position = Input.mousePosition  ;
        // float pivotX = position.x / Screen.width;
         //float pivotY = position.y / Screen.height;
@@ -60,5 +66,16 @@ public class TooltipSystem : MonoBehaviour
         //float pivotY = y / Screen.height;
         //rectTransfrom.pivot = new Vector2(pivotX, pivotY);
         transform.position = position;
+=======
+     Vector3 position = Input.mousePosition  ;
+       
+
+        float pivotX = position.x / Screen.width;
+         float pivotY = position.y / Screen.height;
+         //float pivotX = x / Screen.width;
+         //float pivotY = y / Screen.height;
+         rectTransfrom.pivot = new Vector2(pivotX, pivotY);
+        transform.position = position;  
+>>>>>>> Stashed changes
     }
 }
