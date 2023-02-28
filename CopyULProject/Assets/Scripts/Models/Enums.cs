@@ -7,6 +7,8 @@ namespace EY.Model.Enums
 {
     public enum Level
     {
+        [EnumMember(Value = "Level0")]
+        Level0,
         [EnumMember(Value = "Level1")]
         Level1,
         [EnumMember(Value = "Level2")]

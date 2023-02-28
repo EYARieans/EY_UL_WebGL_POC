@@ -22,9 +22,6 @@ namespace EY.Managers.Collider
         // Start is called before the first frame update
         void Start()
         {
-            MainGateCollider.OnEnter += OnMainGateEntry;
-            LaboratoryCollider.OnEnter += OnLaboratoryEntry;
-            TerraceCollider.OnEnter += OnTerraceEntry;
         }
     }
 }

@@ -3,7 +3,7 @@
 --- !u!30 &1
 GraphicsSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 15
+  serializedVersion: 14
   m_Deferred:
     m_Mode: 1
     m_Shader: {fileID: 69, guid: 0000000000000000f000000000000000, type: 0}
@@ -13,6 +13,9 @@ GraphicsSettings:
   m_ScreenSpaceShadows:
     m_Mode: 1
     m_Shader: {fileID: 64, guid: 0000000000000000f000000000000000, type: 0}
+  m_LegacyDeferred:
+    m_Mode: 1
+    m_Shader: {fileID: 63, guid: 0000000000000000f000000000000000, type: 0}
   m_DepthNormals:
     m_Mode: 1
     m_Shader: {fileID: 62, guid: 0000000000000000f000000000000000, type: 0}
@@ -40,7 +43,7 @@ GraphicsSettings:
   m_PreloadShadersBatchTimeLimit: -1
   m_SpritesDefaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000,
     type: 0}
-  m_CustomRenderPipeline: {fileID: 11400000, guid: d1790eaaf83da42488bd70a399e1caa3,
+  m_CustomRenderPipeline: {fileID: 11400000, guid: 955d70e493b2b2a4fbeb6064e154ecb8,
     type: 2}
   m_TransparencySortMode: 3
   m_TransparencySortAxis: {x: 0, y: 0, z: 1}
@@ -68,4 +71,3 @@ GraphicsSettings:
   m_SRPDefaultSettings:
     UnityEngine.Rendering.Universal.UniversalRenderPipeline: {fileID: 11400000, guid: d322e5a070cdf394d9cb128289477867,
       type: 2}
-  m_LightProbeOutsideHullStrategy: 0

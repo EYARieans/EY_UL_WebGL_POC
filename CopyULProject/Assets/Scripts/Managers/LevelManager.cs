@@ -1,45 +1,55 @@
 using EY.Managers.Collider;
+using EY.Managers.Notification;
 using EY.Managers.Sound;
 using EY.Model.Enums;
+using EY.Utility.Fader;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 
-namespace EY.Managers.Game
+namespace EY.Managers.Levels
 {
     public class LevelManager : MonoBehaviour, IDisposable
     {
         public Level ActiveLevel { get; set; }
         [SerializeField] private ColliderManager colliderManager;
+        [SerializeField] private GameObject Prompt_User;
         [SerializeField] private GameObject Prompt_GrabGun;
         [SerializeField] private GameObject Prompt_Move;
         [SerializeField] private SoundManager soundManager;
         [SerializeField] private PlayableAsset ScientisTimeline;
         [SerializeField] private PlayableDirector PlayableDirector;
+        [SerializeField] private TeleportationArea terraceArea;
         [SerializeField] private XRSimpleInteractable grababaleGunInteractable;
         [SerializeField] private XRSimpleInteractable timeTravellerInteractable;
         [SerializeField] private XRSimpleInteractable flagTargetInteractable;
         [SerializeField] private GameObject entry_Btn;
         [SerializeField] private GameObject arrowTowardsTerrace;
         [SerializeField] private GameObject ControllerGrabbleGun;
+        [SerializeField] private Animator entryDoorAnim;
+        [SerializeField] private FadeScreen fadeScreen;
         private const string PromptClip = "PromptNotification";
         private const string WelcomeClip = "Welcome";
         private bool IsLabSessionDone = false;
+        private bool IsGunGrabbedDone = false;
         public bool IsGrappleGunCollected { get; set; } = false;
         public bool IsTimeTravellerGunCollected { get; set; } = false;
 
         // Start is called before the first frame update
         void Start()
         {
-            colliderManager.OnMainGateEntry += OnMainGateEnter;
-            colliderManager.OnLaboratoryEntry += OnLaboratoryEnter;
-            colliderManager.OnTerraceEntry += OnTerraceEnter;
-
-            LevelInitialization();
+            //    colliderManager.OnMainGateEntry += OnMainGateEnter;
+            //    colliderManager.OnLaboratoryEntry += OnLaboratoryEnter;
+            //    colliderManager.OnTerraceEntry += OnTerraceEnter;
+            entry_Btn.GetComponent<Button>().onClick.AddListener(() => {
+                entryDoorAnim.Play("door_open");
+                StartCoroutine(soundManager.PlayClip("Door"));
+                entry_Btn.transform.parent.gameObject.SetActive(false);
+            });
         }
 
         public void LevelInitialization()
@@ -63,9 +73,10 @@ namespace EY.Managers.Game
             if (IsLabSessionDone) return;
 
             IsLabSessionDone= true;
+
             StartCoroutine(PlayAsset(ScientisTimeline, callBack: () =>
             {
-                if(!Prompt_GrabGun.activeInHierarchy) Prompt_GrabGun.SetActive(true);
+                NotificationManager.Instance.ShowPromptMessage("Move");
                 grababaleGunInteractable.firstSelectEntered.AddListener(OnGrabableGunGrabbed);
                 timeTravellerInteractable.firstSelectEntered.AddListener(OnTimeTravellerGrabbed);
                 flagTargetInteractable.firstSelectEntered.AddListener(OnFlagGrabbed);
@@ -113,15 +124,30 @@ namespace EY.Managers.Game
             if (ActiveLevel == changeTo) return;
 
             ActiveLevel = changeTo;
+            StartCoroutine(GoToSceneAsyncRoutine(changeTo));
+            
+        }
 
-            SceneManager.LoadScene(changeTo.ToString(), LoadSceneMode.Single);
+        private IEnumerator GoToSceneAsyncRoutine(Level level)
+        {
+            fadeScreen.FadeOut();
+            var operation = SceneManager.LoadSceneAsync(level.ToString());
+
+            float timer = 0;
+            while(timer <= fadeScreen.fadeTime && !operation.isDone)
+            {
+                timer +=Time.deltaTime;
+                yield return null;
+            }
+
+            operation.allowSceneActivation = true;
         }
 
         public void Dispose()
         {
-            colliderManager.OnMainGateEntry -= OnMainGateEnter;
-            colliderManager.OnLaboratoryEntry -= OnLaboratoryEnter;
-            colliderManager.OnTerraceEntry -= OnTerraceEnter;
+            //colliderManager.OnMainGateEntry -= OnMainGateEnter;
+            //colliderManager.OnLaboratoryEntry -= OnLaboratoryEnter;
+            //colliderManager.OnTerraceEntry -= OnTerraceEnter;
 
             grababaleGunInteractable.firstSelectEntered.RemoveAllListeners();
             timeTravellerInteractable.firstSelectEntered.RemoveAllListeners();
@@ -136,13 +162,21 @@ namespace EY.Managers.Game
             callBack?.Invoke();
         }
 
+        public void PlaySound(string clip)
+        {
+            StartCoroutine(soundManager.PlayClip(clip));
+        }
+
         private void Update()
         {
             if (IsGrappleGunCollected && IsTimeTravellerGunCollected)
             {
-                if (!arrowTowardsTerrace.activeInHierarchy) arrowTowardsTerrace.SetActive(true);
-                if (Prompt_GrabGun.activeInHierarchy) Prompt_GrabGun.SetActive(false);
-                if (!Prompt_Move.activeInHierarchy) Prompt_Move.SetActive(true);
+                if (IsGunGrabbedDone) return;
+
+                IsGunGrabbedDone = true;
+                arrowTowardsTerrace.SetActive(true);
+                terraceArea.enabled = true;
+                NotificationManager.Instance.ShowPromptMessage("HighlightedArea", 8f);
             }
         }
     }

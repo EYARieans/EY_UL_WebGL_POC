@@ -10,9 +10,23 @@ namespace EY.Managers.Sound
 {
     public class SoundManager : MonoBehaviour
     {
-        [SerializeField] private AudioSource audio_MainSource;
+        [SerializeField] public AudioSource audio_MainSource;
         [SerializeField] private List<AudioSample> audioSamples;
+        private static SoundManager _instance;
+        public static SoundManager Instance { get { return _instance; } }
         public Action audioSourceIsPlaying { get; set; }
+
+        private void Awake()
+        {
+            if (_instance != null && _instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                _instance = this;
+            }
+        }
 
         public void Start()
         {
@@ -31,7 +45,7 @@ namespace EY.Managers.Sound
         {
             var clip = audioSamples.Where(s => s.name == clipName).FirstOrDefault();
             audio_MainSource.PlayOneShot(clip.audioClip, volScale);
-            yield return new WaitWhile(() => audio_MainSource.isPlaying);
+            yield return new WaitForSeconds(clip.audioClip.length);
             callBack?.Invoke();
         }
 
